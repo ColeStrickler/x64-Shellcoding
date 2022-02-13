@@ -19,6 +19,8 @@ _start:
 	mov rdx, length
 	syscall
 
+	mov rax, [var1]
+	mov rbx, [var2]
 
 	; exit gracefully
 
@@ -36,4 +38,5 @@ section .data
 	length: equ $-message
 	; counts bytes occupied by the message string
 
-
+	var1: db 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
+	var2: db 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11

@@ -1,10 +1,4 @@
 ; Filename: MovingData.nasm
-; Author:  Vivek Ramachandran
-; Website:  http://securitytube.net
-; Training: http://securitytube-training.com 
-;
-;
-; Purpose: 
 
 global _start			
 
@@ -13,67 +7,49 @@ _start:
 
 	; mov immediate data to register 
 
+	mov rax, 0xaaaaaaaabbbbbbbb
 	mov eax, 0xaaaaaaaa
-	mov al, 0xbb
+	mov rax, 0xaaaaaaaabbbbbbbb
+	mov al, 0x11
+	mov rax, 0xaaaaaaaabbbbbbbb
 	mov ah, 0xcc
 	mov ax, 0xdddd
 
-	mov ebx, 0
-	mov ecx, 0
+	mov rbp, rax
+	mov r10, rbp
 
-	; mov register to register 
+	mov r11d, r10d
+	mov r12w, r11w
+	mov r13b, r12b
 
-	mov ebx, eax
-	mov cl, al
-	mov ch, ah
-	mov cx, ax
+	mov rsi, [sample2]
+	mov r14d, [sample]
+	mov r15w, [sample]
+	mov dil, [sample]
 
-	mov eax, 0
-	mov ebx, 0
-	mov ecx, 0
-
-	; mov from memory into register 
-
-	mov al, [sample]
-	mov ah, [sample +1]
-	mov bx, [sample]
-	mov ecx, [sample]
-	
-	; mov from register into memory 
-
-
-	mov eax, 0x33445566
-	mov byte [sample], al	
+	mov rax, [sample2]
+	mov byte [sample], al
 	mov word [sample], ax
 	mov dword [sample], eax
+	mov qword [sample], rax
 
-	; mov immediate value into memory 
-
-	mov dword [sample], 0x33445566
-
-	; lea demo
-
-	lea eax, [sample]
-	lea ebx, [eax] 
+	lea rax, [sample]
+	lea rbx, [rax]
 
 
-	; xchg demo 
-	mov eax, 0x11223344
-	mov ebx, 0xaabbccdd
+	mov rax, 0x123456789abcdef
+	mov rbx, 0x999999999999999
+	xchg rax, rbx
 
-	xchg eax, ebx
- 
-	
-	; exit the program gracefully  
-
-	mov eax, 1
-	mov ebx, 0		
-	int 0x80
-
+	mov rax, 0x3c
+	mov rdi, 0
+	syscall 
 
 section .data
 
-sample:	db 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff, 0x11, 0x22
+	sample:	db 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff, 0x11, 0x22
+	sample2: dq 0x1122334455667788
+	sample3: times 8 db 0x00
 
 
 

@@ -15,31 +15,31 @@ _start:
 
 NeverExecute:
 
-	mov eax, 0x10
-	xor ebx, ebx
+	mov rax, 0x10
+	xor rbx, rbx
 
 Begin:
-	mov eax, 0x5
+	mov rax, 0x5
 
 PrintHW:
 
-	push eax
-		
-	; Print hello world using write syscall
-	mov eax, 0x4
-	mov ebx, 1
-	mov ecx, message
-	mov edx, mlen
-	int 0x80
+	push rax
 
-	pop eax
-	dec eax
+
+	mov rax, 1
+	mov rdi, 1
+	mov rsi, message
+	mov rdx, mlen
+	syscall
+	pop rax
+	dec rax
 	jnz PrintHW
 
+	mov rax, 60
+	mov rdi, 11
+	syscall
 
-	mov eax, 0x1
-	mov ebx, 0xa		; sys_exit syscall
-	int 0x80
+
 
 section .data
 
